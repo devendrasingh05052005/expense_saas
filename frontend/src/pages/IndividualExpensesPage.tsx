@@ -197,6 +197,7 @@ export const IndividualExpensesPage: React.FC = () => {
                   <th className="px-5 py-3.5">Date</th>
                   <th className="px-5 py-3.5">Description</th>
                   <th className="px-5 py-3.5">Category</th>
+                  <th className="px-5 py-3.5">Payment Mode</th>
                   <th className="px-5 py-3.5">Paid By</th>
                   <th className="px-5 py-3.5 text-right">Amount (₹)</th>
                   <th className="px-5 py-3.5 text-right">Actions</th>
@@ -221,6 +222,17 @@ export const IndividualExpensesPage: React.FC = () => {
                     <td className="px-5 py-4 whitespace-nowrap">
                       <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-gray-100 dark:bg-dark-surface text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-dark-border">
                         {exp.category}
+                      </span>
+                    </td>
+                    <td className="px-5 py-4 whitespace-nowrap">
+                      <span
+                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold border ${
+                          exp.payment_method === 'Cash'
+                            ? 'bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 border-amber-200 dark:border-amber-800'
+                            : 'bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-400 border-indigo-200 dark:border-indigo-800'
+                        }`}
+                      >
+                        {exp.payment_method || 'Online'}
                       </span>
                     </td>
                     <td className="px-5 py-4 whitespace-nowrap">

@@ -70,6 +70,7 @@ def get_expenses(
                 amount=exp.amount,
                 description=exp.description,
                 category=exp.category,
+                payment_method=getattr(exp, "payment_method", "Online") or "Online",
                 expense_date=exp.expense_date,
                 created_at=exp.created_at,
                 can_edit=can_edit
@@ -93,6 +94,7 @@ def add_expense(
         amount=round(req.amount, 2),
         description=req.description.strip(),
         category=req.category.strip() if req.category else "General",
+        payment_method=req.payment_method.strip() if req.payment_method else "Online",
         expense_date=exp_date
     )
     db.add(expense)
@@ -117,6 +119,7 @@ def add_expense(
         amount=expense.amount,
         description=expense.description,
         category=expense.category,
+        payment_method=getattr(expense, "payment_method", "Online") or "Online",
         expense_date=expense.expense_date,
         created_at=expense.created_at,
         can_edit=True
@@ -150,6 +153,8 @@ def update_expense(
         expense.description = req.description.strip()
     if req.category is not None:
         expense.category = req.category.strip()
+    if req.payment_method is not None:
+        expense.payment_method = req.payment_method.strip()
     if req.expense_date is not None:
         expense.expense_date = req.expense_date
         
@@ -165,6 +170,7 @@ def update_expense(
         amount=expense.amount,
         description=expense.description,
         category=expense.category,
+        payment_method=getattr(expense, "payment_method", "Online") or "Online",
         expense_date=expense.expense_date,
         created_at=expense.created_at,
         can_edit=True

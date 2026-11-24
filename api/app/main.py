@@ -46,6 +46,23 @@ def on_startup():
     except Exception as e:
         print(f"⚠️ Non-blocking DB verification note: {e}")
 
+    # Seamlessly add payment_method column if not present
+    from sqlalchemy import text
+    try:
+        with engine.connect() as conn:
+            try:
+                conn.execute(text("ALTER TABLE individual_expenses ADD COLUMN payment_method VARCHAR(50) DEFAULT 'Online'"))
+                conn.commit()
+            except Exception:
+                pass
+            try:
+                conn.execute(text("ALTER TABLE fund_expenses ADD COLUMN payment_method VARCHAR(50) DEFAULT 'Online'"))
+                conn.commit()
+            except Exception:
+                pass
+    except Exception as e:
+        print(f"⚠️ Column check note: {e}")
+
 @app.get("/")
 def root():
     return {

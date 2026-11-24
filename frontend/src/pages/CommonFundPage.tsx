@@ -270,6 +270,7 @@ export const CommonFundPage: React.FC = () => {
                   <th className="px-5 py-3.5">Date</th>
                   <th className="px-5 py-3.5">Description</th>
                   <th className="px-5 py-3.5">Type</th>
+                  <th className="px-5 py-3.5">Payment Mode</th>
                   <th className="px-5 py-3.5">Added By</th>
                   <th className="px-5 py-3.5 text-right">Amount (₹)</th>
                   <th className="px-5 py-3.5 text-right">Balance After (₹)</th>
@@ -318,6 +319,17 @@ export const CommonFundPage: React.FC = () => {
                               Expense
                             </>
                           )}
+                        </span>
+                      </td>
+                      <td className="px-5 py-4 whitespace-nowrap">
+                        <span
+                          className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold border ${
+                            tx.payment_method === 'Cash'
+                              ? 'bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 border-amber-200 dark:border-amber-800'
+                              : 'bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-400 border-indigo-200 dark:border-indigo-800'
+                          }`}
+                        >
+                          {tx.payment_method || 'Online'}
                         </span>
                       </td>
                       <td className="px-5 py-4 whitespace-nowrap text-xs font-medium text-gray-700 dark:text-gray-300">

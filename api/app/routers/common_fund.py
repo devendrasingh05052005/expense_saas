@@ -109,6 +109,7 @@ def get_fund_transactions(
             "amount": c.amount,
             "description": c.notes or "Fund Contribution",
             "category": "Contribution",
+            "payment_method": "Online",
             "user_id": c.user_id,
             "user_name": c.user.full_name if c.user else "Unknown",
             "date": c.contribution_date,
@@ -122,6 +123,7 @@ def get_fund_transactions(
             "amount": e.amount,
             "description": e.description,
             "category": e.category,
+            "payment_method": getattr(e, "payment_method", "Online") or "Online",
             "user_id": e.purchased_by_id,
             "user_name": e.purchased_by.full_name if e.purchased_by else "Unknown",
             "date": e.expense_date,
@@ -161,6 +163,7 @@ def get_fund_transactions(
                 amount=item["amount"],
                 description=item["description"],
                 category=item["category"],
+                payment_method=item.get("payment_method", "Online") or "Online",
                 user_id=item["user_id"],
                 user_name=item["user_name"],
                 date=item["date"],
@@ -235,6 +238,7 @@ def add_fund_expense(
         amount=expense_amount,
         description=req.description.strip(),
         category=req.category.strip() if req.category else "Groceries",
+        payment_method=req.payment_method.strip() if req.payment_method else "Online",
         expense_date=e_date
     )
     db.add(expense)
@@ -294,6 +298,8 @@ def update_fund_expense(
         expense.description = req.description.strip()
     if req.category is not None:
         expense.category = req.category.strip()
+    if req.payment_method is not None:
+        expense.payment_method = req.payment_method.strip()
     if req.expense_date is not None:
         expense.expense_date = req.expense_date
         

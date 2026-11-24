@@ -12,6 +12,7 @@ class IndividualExpense(Base):
     amount = Column(Float, nullable=False)
     description = Column(String(255), nullable=False)
     category = Column(String(100), default="General", nullable=False)
+    payment_method = Column(String(50), default="Online", nullable=False)
     expense_date = Column(Date, default=datetime.date.today, nullable=False, index=True)
     created_at = Column(DateTime, default=datetime.datetime.utcnow, nullable=False)
     updated_at = Column(DateTime, default=datetime.datetime.utcnow, onupdate=datetime.datetime.utcnow)

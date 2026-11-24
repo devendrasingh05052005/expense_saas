@@ -16,12 +16,14 @@ class FundExpenseCreate(BaseModel):
     amount: float = Field(..., gt=0)
     description: str = Field(..., min_length=1, max_length=255)
     category: str = Field("Groceries", max_length=100)
+    payment_method: Optional[str] = "Online"
     expense_date: Optional[date] = None
 
 class FundExpenseUpdate(BaseModel):
     amount: Optional[float] = Field(None, gt=0)
     description: Optional[str] = Field(None, min_length=1, max_length=255)
     category: Optional[str] = Field(None, max_length=100)
+    payment_method: Optional[str] = None
     expense_date: Optional[date] = None
 
 class FundTransactionItem(BaseModel):
@@ -30,6 +32,7 @@ class FundTransactionItem(BaseModel):
     amount: float
     description: str
     category: Optional[str] = None
+    payment_method: Optional[str] = "Online"
     user_id: int
     user_name: str
     date: date

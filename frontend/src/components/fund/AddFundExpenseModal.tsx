@@ -40,6 +40,7 @@ export const AddFundExpenseModal: React.FC<AddFundExpenseModalProps> = ({
   const [amount, setAmount] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [category, setCategory] = useState<string>('Groceries (Milk, Veggies, Atta, Oil)');
+  const [paymentMethod, setPaymentMethod] = useState<'Online' | 'Cash'>('Online');
   const [expenseDate, setExpenseDate] = useState<string>(
     new Date().toISOString().split('T')[0]
   );
@@ -50,11 +51,13 @@ export const AddFundExpenseModal: React.FC<AddFundExpenseModalProps> = ({
       setAmount(String(transactionToEdit.amount));
       setDescription(transactionToEdit.description);
       setCategory(transactionToEdit.category || 'Groceries');
+      setPaymentMethod((transactionToEdit.payment_method as 'Online' | 'Cash') || 'Online');
       setExpenseDate(transactionToEdit.date);
     } else {
       setAmount('');
       setDescription('');
       setCategory('Groceries (Milk, Veggies, Atta, Oil)');
+      setPaymentMethod('Online');
       setExpenseDate(new Date().toISOString().split('T')[0]);
     }
   }, [transactionToEdit, isOpen]);
@@ -89,6 +92,7 @@ export const AddFundExpenseModal: React.FC<AddFundExpenseModalProps> = ({
           amount: parsedAmount,
           description: description.trim(),
           category,
+          payment_method: paymentMethod,
           expense_date: expenseDate,
         });
         success('Fund expense updated!');
@@ -97,6 +101,7 @@ export const AddFundExpenseModal: React.FC<AddFundExpenseModalProps> = ({
           amount: parsedAmount,
           description: description.trim(),
           category,
+          payment_method: paymentMethod,
           expense_date: expenseDate,
         });
         success(`Spent ₹${parsedAmount.toLocaleString('en-IN')} from Common Fund.`);
@@ -196,22 +201,40 @@ export const AddFundExpenseModal: React.FC<AddFundExpenseModalProps> = ({
           />
         </div>
 
-        {/* Category */}
-        <div>
-          <label className="block text-xs font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-1.5">
-            Category
-          </label>
-          <select
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            className="w-full rounded-xl border border-gray-300 dark:border-dark-border bg-white dark:bg-dark-card text-gray-900 dark:text-white p-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
-          >
-            {FUND_CATEGORIES.map((cat) => (
-              <option key={cat} value={cat}>
-                {cat}
-              </option>
-            ))}
-          </select>
+        {/* Category & Payment Mode Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {/* Category */}
+          <div>
+            <label className="block text-xs font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-1.5">
+              Category
+            </label>
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="w-full rounded-xl border border-gray-300 dark:border-dark-border bg-white dark:bg-dark-card text-gray-900 dark:text-white p-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
+            >
+              {FUND_CATEGORIES.map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Payment Mode */}
+          <div>
+            <label className="block text-xs font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-1.5">
+              Payment Mode
+            </label>
+            <select
+              value={paymentMethod}
+              onChange={(e) => setPaymentMethod(e.target.value as 'Online' | 'Cash')}
+              className="w-full rounded-xl border border-gray-300 dark:border-dark-border bg-white dark:bg-dark-card text-gray-900 dark:text-white p-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
+            >
+              <option value="Online">Online (UPI / Card / QR)</option>
+              <option value="Cash">Cash (Physical Cash)</option>
+            </select>
+          </div>
         </div>
 
         {/* Actions */}

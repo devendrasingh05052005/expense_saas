@@ -43,6 +43,7 @@ export interface Expense {
   amount: number;
   description: string;
   category: string;
+  payment_method?: string;
   expense_date: string;
   created_at: string;
   can_edit: boolean;
@@ -73,6 +74,7 @@ export interface FundTransaction {
   amount: number;
   description: string;
   category: string | null;
+  payment_method?: string;
   user_id: number;
   user_name: string;
   date: string;
