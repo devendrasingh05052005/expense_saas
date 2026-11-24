@@ -5,11 +5,13 @@ from pydantic import BaseModel
 load_dotenv()
 
 def get_database_url() -> str:
-    url = os.getenv("DATABASE_URL")
+    url = os.getenv("DATABASE_URL") or os.getenv("POSTGRES_URL")
     if url:
-        # Normalize postgres:// to postgresql:// for modern SQLAlchemy
+        # Normalize postgres:// and postgresql:// to postgresql+psycopg:// for SQLAlchemy 2.0 & Psycopg 3
         if url.startswith("postgres://"):
-            url = url.replace("postgres://", "postgresql://", 1)
+            url = url.replace("postgres://", "postgresql+psycopg://", 1)
+        elif url.startswith("postgresql://"):
+            url = url.replace("postgresql://", "postgresql+psycopg://", 1)
         return url
     if os.getenv("VERCEL"):
         return "sqlite:////tmp/roommates.db"
