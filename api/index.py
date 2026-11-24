@@ -1,7 +1,7 @@
 import os
 import sys
+import traceback
 
-# Top-level declarations for Vercel's AST static scanner
 app = None
 application = None
 handler = None
@@ -21,25 +21,22 @@ try:
     application = app
     handler = app
 except Exception as e:
-    import traceback
-    from fastapi import FastAPI
-    from fastapi.responses import JSONResponse
-    _err_app = FastAPI(title="Error Diagnostic")
-    err_str = traceback.format_exc()
+    err_msg = str(e)
+    err_trace = traceback.format_exc()
+    print("FATAL IMPORT ERROR:", err_trace)
 
-    @_err_app.api_route("/{full_path:path}", methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"])
-    def error_handler(full_path: str):
-        return JSONResponse(
-            status_code=500,
-            content={
-                "error": "FastAPI App Initialization Failed",
-                "exception": str(e),
-                "traceback": err_str.split("\n"),
-                "sys_path": sys.path,
-                "current_dir": current_dir,
-                "files_in_current_dir": os.listdir(current_dir) if os.path.exists(current_dir) else []
-            }
-        )
+    from fastapi import FastAPI
+    from fastapi.responses import PlainTextResponse
+
+    _err_app = FastAPI(title="Error Diagnostic")
+
+    @_err_app.get("/api/v1/debug-error")
+    @_err_app.get("/debug-error")
+    @_err_app.get("/")
+    def debug_error():
+        info = f"EXCEPTION: {err_msg}\n\nTRACEBACK:\n{err_trace}\n\nSYS_PATH:\n{sys.path}\n\nFILES IN CURRENT DIR ({current_dir}):\n{os.listdir(current_dir) if os.path.exists(current_dir) else 'None'}"
+        return PlainTextResponse(content=info, status_code=200)
+
     app = _err_app
     application = app
     handler = app
