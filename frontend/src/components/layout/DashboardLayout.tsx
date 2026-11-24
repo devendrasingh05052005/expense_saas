@@ -25,7 +25,7 @@ export const DashboardLayout: React.FC = () => {
   const [isJoinGroupOpen, setIsJoinGroupOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-dark-bg transition-colors flex">
+    <div className="min-h-screen min-h-[100dvh] bg-gray-50 dark:bg-dark-bg transition-colors flex overflow-x-hidden w-full max-w-full">
       {/* Sidebar */}
       <Sidebar
         onOpenCreateGroup={() => setIsCreateGroupOpen(true)}
@@ -35,7 +35,7 @@ export const DashboardLayout: React.FC = () => {
       />
 
       {/* Main Content Area */}
-      <div className="flex-1 lg:pl-64 flex flex-col min-h-screen min-w-0">
+      <div className="flex-1 lg:pl-64 flex flex-col min-h-screen min-h-[100dvh] min-w-0 w-full max-w-full overflow-x-hidden">
         <Navbar
           onToggleMobileSidebar={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)}
           onOpenAddExpense={() => setIsAddExpenseOpen(true)}
@@ -44,7 +44,7 @@ export const DashboardLayout: React.FC = () => {
           onToggleActivityDrawer={() => setIsActivityOpen(!isActivityOpen)}
         />
 
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
+        <main className="flex-1 p-3 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto min-w-0 overflow-x-hidden">
           {isLoadingGroups ? (
             <div className="flex items-center justify-center h-64 text-sm text-gray-400">
               Loading workspace...

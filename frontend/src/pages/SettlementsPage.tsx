@@ -258,27 +258,31 @@ export const SettlementsPage: React.FC = () => {
               {settlementData.suggested_transfers.map((t, idx) => (
                 <div
                   key={idx}
-                  className="p-4 rounded-xl border border-gray-100 dark:border-dark-border bg-gray-50/60 dark:bg-dark-surface/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+                  className="p-3.5 sm:p-4 rounded-xl border border-gray-100 dark:border-dark-border bg-gray-50/60 dark:bg-dark-surface/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 min-w-0"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-xl bg-rose-100 dark:bg-rose-950/60 text-rose-600 font-bold text-xs flex items-center justify-center shrink-0">
-                      {t.from_user_name.charAt(0)}
-                    </div>
-                    <div className="text-sm font-semibold text-gray-900 dark:text-white">
-                      {t.from_user_name}
+                  <div className="flex flex-wrap items-center gap-2 sm:gap-3 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <div className="w-7 h-7 rounded-lg bg-rose-100 dark:bg-rose-950/60 text-rose-600 font-bold text-xs flex items-center justify-center shrink-0">
+                        {t.from_user_name.charAt(0)}
+                      </div>
+                      <div className="text-sm font-semibold text-gray-900 dark:text-white truncate">
+                        {t.from_user_name}
+                      </div>
                     </div>
 
-                    <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white dark:bg-dark-card border border-gray-200 dark:border-dark-border text-xs font-bold text-indigo-600 dark:text-indigo-400 shadow-xs">
+                    <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white dark:bg-dark-card border border-gray-200 dark:border-dark-border text-xs font-bold text-indigo-600 dark:text-indigo-400 shadow-xs shrink-0">
                       <span>owes</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-indigo-500" />
+                      <ArrowRight className="w-3.5 h-3.5 text-indigo-500 shrink-0" />
                       <span>₹{t.amount.toLocaleString('en-IN')}</span>
                     </div>
 
-                    <div className="text-sm font-semibold text-gray-900 dark:text-white">
-                      {t.to_user_name}
-                    </div>
-                    <div className="w-8 h-8 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 font-bold text-xs flex items-center justify-center shrink-0">
-                      {t.to_user_name.charAt(0)}
+                    <div className="flex items-center gap-2">
+                      <div className="text-sm font-semibold text-gray-900 dark:text-white truncate">
+                        {t.to_user_name}
+                      </div>
+                      <div className="w-7 h-7 rounded-lg bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 font-bold text-xs flex items-center justify-center shrink-0">
+                        {t.to_user_name.charAt(0)}
+                      </div>
                     </div>
                   </div>
 
@@ -286,7 +290,8 @@ export const SettlementsPage: React.FC = () => {
                     size="sm"
                     variant="outline"
                     onClick={() => handleSettleSuggested(t)}
-                    leftIcon={<CreditCard className="w-3.5 h-3.5 text-indigo-500" />}
+                    leftIcon={<CreditCard className="w-3.5 h-3.5 text-indigo-500 shrink-0" />}
+                    className="w-full sm:w-auto text-xs shrink-0"
                   >
                     Mark Paid via UPI
                   </Button>

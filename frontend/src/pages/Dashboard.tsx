@@ -106,7 +106,7 @@ export const Dashboard: React.FC = () => {
       {/* Welcome Banner */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
             Hello, {user?.full_name?.split(' ')[0]} 👋
           </h1>
           <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
@@ -115,68 +115,71 @@ export const Dashboard: React.FC = () => {
         </div>
 
         {/* Quick Actions Header */}
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
           <Button
             size="sm"
             onClick={openAddExpense}
-            leftIcon={<Receipt className="w-4 h-4" />}
+            leftIcon={<Receipt className="w-4 h-4 shrink-0" />}
+            className="flex-1 sm:flex-none text-xs whitespace-nowrap"
           >
-            Add Personal Expense
+            Add Expense
           </Button>
           <Button
             size="sm"
             variant="secondary"
             onClick={openAddFundExpense}
-            leftIcon={<PiggyBank className="w-4 h-4 text-emerald-500" />}
+            leftIcon={<PiggyBank className="w-4 h-4 text-emerald-500 shrink-0" />}
+            className="flex-1 sm:flex-none text-xs whitespace-nowrap"
           >
-            Spend Fund Money
+            Spend Fund
           </Button>
           <Button
             size="sm"
             variant="outline"
             onClick={openAddContribution}
-            leftIcon={<Plus className="w-4 h-4" />}
+            leftIcon={<Plus className="w-4 h-4 shrink-0" />}
+            className="flex-1 sm:flex-none text-xs whitespace-nowrap"
           >
-            Contribute Fund
+            Contribute
           </Button>
         </div>
       </div>
 
       {/* Date Range Filter Bar */}
-      <div className="p-4 rounded-2xl border border-gray-200 dark:border-dark-border bg-white dark:bg-dark-card shadow-xs">
-        <form onSubmit={handleApplyFilter} className="flex flex-wrap items-center gap-3">
+      <div className="p-3.5 sm:p-4 rounded-2xl border border-gray-200 dark:border-dark-border bg-white dark:bg-dark-card shadow-xs min-w-0 overflow-hidden">
+        <form onSubmit={handleApplyFilter} className="flex flex-wrap items-center gap-2.5 sm:gap-3">
           <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-gray-500 shrink-0">
-            <Calendar className="w-4 h-4 text-brand-600" />
+            <Calendar className="w-4 h-4 text-brand-600 shrink-0" />
             <span>Date Filter:</span>
           </div>
 
-          <div className="flex items-center gap-2 text-xs">
-            <span className="text-gray-400">From</span>
+          <div className="flex items-center gap-2 text-xs flex-1 sm:flex-none min-w-[120px]">
+            <span className="text-gray-400 shrink-0">From</span>
             <input
               type="date"
               value={localFrom}
               onChange={(e) => setLocalFrom(e.target.value)}
-              className="text-xs rounded-xl border border-gray-200 dark:border-dark-border bg-gray-50 dark:bg-dark-surface p-2 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="w-full sm:w-auto text-xs rounded-xl border border-gray-200 dark:border-dark-border bg-gray-50 dark:bg-dark-surface p-2 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500"
             />
           </div>
 
-          <div className="flex items-center gap-2 text-xs">
-            <span className="text-gray-400">To</span>
+          <div className="flex items-center gap-2 text-xs flex-1 sm:flex-none min-w-[120px]">
+            <span className="text-gray-400 shrink-0">To</span>
             <input
               type="date"
               value={localTo}
               onChange={(e) => setLocalTo(e.target.value)}
-              className="text-xs rounded-xl border border-gray-200 dark:border-dark-border bg-gray-50 dark:bg-dark-surface p-2 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="w-full sm:w-auto text-xs rounded-xl border border-gray-200 dark:border-dark-border bg-gray-50 dark:bg-dark-surface p-2 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500"
             />
           </div>
 
-          <div className="flex items-center gap-2 ml-auto">
-            <Button type="submit" size="sm" variant="secondary">
+          <div className="flex items-center gap-2 w-full sm:w-auto sm:ml-auto pt-1 sm:pt-0">
+            <Button type="submit" size="sm" variant="secondary" className="flex-1 sm:flex-none text-xs">
               Apply Filter
             </Button>
             {(fromDate || toDate) && (
-              <Button type="button" size="sm" variant="ghost" onClick={handleResetFilter} leftIcon={<RotateCcw className="w-3.5 h-3.5" />}>
-                Reset Filter
+              <Button type="button" size="sm" variant="ghost" onClick={handleResetFilter} leftIcon={<RotateCcw className="w-3.5 h-3.5" />} className="flex-1 sm:flex-none text-xs">
+                Reset
               </Button>
             )}
           </div>

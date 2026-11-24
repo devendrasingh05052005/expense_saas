@@ -101,18 +101,21 @@ export const CommonFundPage: React.FC = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
           <Button
             variant="outline"
+            size="sm"
             onClick={() => setIsContributionOpen(true)}
-            leftIcon={<Plus className="w-4 h-4 text-emerald-500" />}
+            leftIcon={<Plus className="w-4 h-4 text-emerald-500 shrink-0" />}
+            className="flex-1 sm:flex-none text-xs whitespace-nowrap"
           >
             Contribute Fund
           </Button>
           <Button
+            size="sm"
             onClick={() => setIsExpenseOpen(true)}
-            leftIcon={<PiggyBank className="w-4 h-4" />}
-            className="bg-emerald-600 hover:bg-emerald-700"
+            leftIcon={<PiggyBank className="w-4 h-4 shrink-0" />}
+            className="bg-emerald-600 hover:bg-emerald-700 flex-1 sm:flex-none text-xs whitespace-nowrap"
           >
             Spend Fund Money
           </Button>

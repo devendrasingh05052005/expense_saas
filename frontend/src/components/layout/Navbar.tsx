@@ -59,12 +59,13 @@ export const Navbar: React.FC<NavbarProps> = ({
   const hasActiveDateFilter = Boolean(fromDate || toDate);
 
   return (
-    <header className="sticky top-0 z-30 h-16 bg-white/90 dark:bg-dark-surface/90 backdrop-blur-md border-b border-gray-200 dark:border-dark-border px-4 sm:px-6 flex items-center justify-between transition-colors">
+    <header className="sticky top-0 z-30 h-16 bg-white/90 dark:bg-dark-surface/90 backdrop-blur-md border-b border-gray-200 dark:border-dark-border px-3 sm:px-6 flex items-center justify-between transition-colors w-full min-w-0">
       {/* Left: Mobile Toggle & Date Filter */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2 sm:gap-3 min-w-0">
         <button
           onClick={onToggleMobileSidebar}
-          className="lg:hidden p-2 rounded-xl text-gray-500 hover:bg-gray-100 dark:hover:bg-dark-card"
+          aria-label="Open navigation menu"
+          className="lg:hidden p-2 rounded-xl text-gray-500 hover:bg-gray-100 dark:hover:bg-dark-card shrink-0"
         >
           <Menu className="w-5 h-5" />
         </button>
@@ -73,24 +74,27 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="relative">
           <button
             onClick={() => setIsDateFilterOpen(!isDateFilterOpen)}
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-medium border transition-all ${
+            className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-medium border transition-all shrink-0 ${
               hasActiveDateFilter
                 ? 'bg-brand-50 dark:bg-brand-950/60 border-brand-300 dark:border-brand-700 text-brand-700 dark:text-brand-300 font-semibold'
                 : 'bg-gray-50 dark:bg-dark-card border-gray-200 dark:border-dark-border text-gray-600 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600'
             }`}
           >
-            <Calendar className="w-3.5 h-3.5" />
-            <span>
+            <Calendar className="w-3.5 h-3.5 shrink-0" />
+            <span className="hidden sm:inline">
               {hasActiveDateFilter
                 ? `${fromDate || 'Start'} → ${toDate || 'Today'}`
                 : 'Date Range'}
             </span>
-            <ChevronDown className="w-3 h-3 text-gray-400" />
+            <span className="inline sm:hidden text-[11px]">
+              {hasActiveDateFilter ? 'Filtered' : 'Filter'}
+            </span>
+            <ChevronDown className="w-3 h-3 text-gray-400 shrink-0" />
           </button>
 
           {/* Date Filter Dropdown */}
           {isDateFilterOpen && (
-            <div className="absolute left-0 mt-2 w-72 bg-white dark:bg-dark-card rounded-2xl shadow-2xl border border-gray-200 dark:border-dark-border p-4 z-50">
+            <div className="absolute left-0 mt-2 w-72 max-w-[calc(100vw-2rem)] bg-white dark:bg-dark-card rounded-2xl shadow-2xl border border-gray-200 dark:border-dark-border p-4 z-50">
               <div className="flex items-center justify-between mb-3 pb-2 border-b border-gray-100 dark:border-dark-border">
                 <span className="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">
                   Filter by Date
@@ -141,12 +145,12 @@ export const Navbar: React.FC<NavbarProps> = ({
       </div>
 
       {/* Right: Theme Toggle, Activity & Actions */}
-      <div className="flex items-center gap-2 sm:gap-3">
+      <div className="flex items-center gap-1 sm:gap-2.5 shrink-0">
         {/* Activity feed button */}
         <button
           onClick={onToggleActivityDrawer}
           title="Activity Log"
-          className="p-2 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-dark-card border border-transparent hover:border-gray-200 dark:hover:border-dark-border transition-colors"
+          className="p-1.5 sm:p-2 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-dark-card border border-transparent hover:border-gray-200 dark:hover:border-dark-border transition-colors shrink-0"
         >
           <History className="w-4 h-4" />
         </button>
@@ -156,7 +160,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           type="button"
           onClick={toggleTheme}
           title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-          className="p-2 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-dark-card border border-gray-200 dark:border-dark-border transition-all flex items-center justify-center cursor-pointer shadow-xs"
+          className="p-1.5 sm:p-2 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-dark-card border border-gray-200 dark:border-dark-border transition-all flex items-center justify-center cursor-pointer shadow-xs shrink-0"
         >
           {theme === 'dark' ? (
             <Sun className="w-4 h-4 text-amber-400 animate-spin-slow" />
@@ -166,23 +170,24 @@ export const Navbar: React.FC<NavbarProps> = ({
         </button>
 
         {/* Quick Add Buttons */}
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-1 sm:gap-1.5">
           <Button
             size="sm"
             onClick={onOpenAddExpense}
-            leftIcon={<Receipt className="w-3.5 h-3.5" />}
-            className="shadow-sm"
+            leftIcon={<Receipt className="w-3.5 h-3.5 shrink-0" />}
+            className="shadow-sm text-xs px-2.5 sm:px-3 py-1.5 whitespace-nowrap"
           >
-            <span className="hidden sm:inline">Add</span> Expense
+            <span className="hidden sm:inline">Add </span>Expense
           </Button>
 
           <Button
             size="sm"
             variant="secondary"
             onClick={onOpenAddFundExpense}
-            leftIcon={<PiggyBank className="w-3.5 h-3.5 text-emerald-500" />}
+            leftIcon={<PiggyBank className="w-3.5 h-3.5 text-emerald-500 shrink-0" />}
+            className="hidden md:inline-flex text-xs px-2.5 sm:px-3 py-1.5 whitespace-nowrap"
           >
-            <span className="hidden sm:inline">Fund</span> Spend
+            Fund Spend
           </Button>
         </div>
       </div>

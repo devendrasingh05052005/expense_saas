@@ -94,10 +94,10 @@ export const AnalyticsCharts: React.FC<AnalyticsChartsProps> = ({ analytics }) =
   };
 
   return (
-    <div className="space-y-6">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div className="space-y-6 w-full min-w-0 overflow-hidden">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full min-w-0">
         {/* Donut Chart: Individual Contributions */}
-        <div className="rounded-2xl border border-gray-200 dark:border-dark-border bg-white dark:bg-dark-card p-5 shadow-card dark:shadow-card-dark">
+        <div className="rounded-2xl border border-gray-200 dark:border-dark-border bg-white dark:bg-dark-card p-4 sm:p-5 shadow-card dark:shadow-card-dark w-full min-w-0 overflow-hidden">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="font-semibold text-sm text-gray-900 dark:text-white">
@@ -120,7 +120,7 @@ export const AnalyticsCharts: React.FC<AnalyticsChartsProps> = ({ analytics }) =
               No individual expenses recorded for this period.
             </div>
           ) : (
-            <div className="h-64">
+            <div className="h-64 w-full min-w-0 overflow-hidden">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
@@ -153,7 +153,7 @@ export const AnalyticsCharts: React.FC<AnalyticsChartsProps> = ({ analytics }) =
         </div>
 
         {/* Bar Chart: Member Comparison */}
-        <div className="rounded-2xl border border-gray-200 dark:border-dark-border bg-white dark:bg-dark-card p-5 shadow-card dark:shadow-card-dark">
+        <div className="rounded-2xl border border-gray-200 dark:border-dark-border bg-white dark:bg-dark-card p-4 sm:p-5 shadow-card dark:shadow-card-dark w-full min-w-0 overflow-hidden">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="font-semibold text-sm text-gray-900 dark:text-white">
@@ -170,7 +170,7 @@ export const AnalyticsCharts: React.FC<AnalyticsChartsProps> = ({ analytics }) =
               No expenses to compare.
             </div>
           ) : (
-            <div className="h-64">
+            <div className="h-64 w-full min-w-0 overflow-hidden">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={memberBarData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke={gridColor} vertical={false} />
@@ -192,7 +192,7 @@ export const AnalyticsCharts: React.FC<AnalyticsChartsProps> = ({ analytics }) =
       </div>
 
       {/* Spending Trend Area Chart */}
-      <div className="rounded-2xl border border-gray-200 dark:border-dark-border bg-white dark:bg-dark-card p-5 shadow-card dark:shadow-card-dark">
+      <div className="rounded-2xl border border-gray-200 dark:border-dark-border bg-white dark:bg-dark-card p-4 sm:p-5 shadow-card dark:shadow-card-dark w-full min-w-0 overflow-hidden">
         <div className="flex items-center justify-between mb-4">
           <div>
             <h3 className="font-semibold text-sm text-gray-900 dark:text-white">
@@ -209,7 +209,7 @@ export const AnalyticsCharts: React.FC<AnalyticsChartsProps> = ({ analytics }) =
             No spending trend data available.
           </div>
         ) : (
-          <div className="h-64">
+          <div className="h-64 w-full min-w-0 overflow-hidden">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={trendData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
                 <defs>
@@ -244,7 +244,7 @@ export const AnalyticsCharts: React.FC<AnalyticsChartsProps> = ({ analytics }) =
 
       {/* Category Breakdown Progress */}
       {analytics.category_distribution.length > 0 && (
-        <div className="rounded-2xl border border-gray-200 dark:border-dark-border bg-white dark:bg-dark-card p-5 shadow-card dark:shadow-card-dark">
+        <div className="rounded-2xl border border-gray-200 dark:border-dark-border bg-white dark:bg-dark-card p-4 sm:p-5 shadow-card dark:shadow-card-dark w-full min-w-0 overflow-hidden">
           <h3 className="font-semibold text-sm text-gray-900 dark:text-white mb-4">
             Spending by Category
           </h3>
