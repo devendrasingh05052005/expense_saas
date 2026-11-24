@@ -102,11 +102,6 @@ export const VerifyOTP: React.FC = () => {
 
         {/* Verification Card */}
         <div className="rounded-2xl border border-gray-200 dark:border-dark-border bg-white dark:bg-dark-card p-6 sm:p-8 shadow-card dark:shadow-card-dark">
-          <div className="p-3.5 mb-5 rounded-xl bg-brand-50/60 dark:bg-brand-950/40 border border-brand-100 dark:border-brand-900/60 flex items-center gap-2.5 text-xs text-brand-800 dark:text-brand-300">
-            <Mail className="w-4 h-4 text-brand-600 dark:text-brand-400 shrink-0" />
-            <span>Please check your inbox (or Spam folder) for the 6-digit OTP code.</span>
-          </div>
-
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-xs font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-1.5">
@@ -157,6 +152,10 @@ export const VerifyOTP: React.FC = () => {
               {resendCooldown > 0 ? `Resend in ${resendCooldown}s` : 'Resend Code'}
             </button>
           </div>
+
+          <p className="text-[11px] text-gray-400 dark:text-gray-500 text-center mt-3">
+            Please check your Spam or Junk folder if the OTP does not arrive in your Inbox.
+          </p>
         </div>
 
         {/* Footer */}

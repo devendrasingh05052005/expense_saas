@@ -83,11 +83,6 @@ export const Register: React.FC = () => {
 
         {/* Register Card */}
         <div className="rounded-2xl border border-gray-200 dark:border-dark-border bg-white dark:bg-dark-card p-6 sm:p-8 shadow-card dark:shadow-card-dark">
-          <div className="p-3 mb-5 rounded-xl bg-brand-50/60 dark:bg-brand-950/40 border border-brand-100 dark:border-brand-900/60 flex items-center gap-2.5 text-xs text-brand-800 dark:text-brand-300">
-            <ShieldCheck className="w-4 h-4 text-brand-600 dark:text-brand-400 shrink-0" />
-            <span>A 6-digit OTP will be dispatched to your email address for verification.</span>
-          </div>
-
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-xs font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300 mb-1.5">
@@ -148,6 +143,11 @@ export const Register: React.FC = () => {
             <Button type="submit" className="w-full mt-2" isLoading={isLoading} rightIcon={<ArrowRight className="w-4 h-4" />}>
               Continue to OTP Verification
             </Button>
+
+            <p className="text-center text-xs text-gray-500 dark:text-gray-400 pt-1 flex items-center justify-center gap-1.5">
+              <ShieldCheck className="w-3.5 h-3.5 text-brand-500" />
+              <span>We'll send a 6-digit verification code to your email</span>
+            </p>
           </form>
         </div>
 
