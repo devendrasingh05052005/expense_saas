@@ -13,9 +13,7 @@ from app.routers import (
     demo
 )
 
-# Create tables on startup
-Base.metadata.create_all(bind=engine)
-
+# Create FastAPI App
 app = FastAPI(
     title=settings.PROJECT_NAME,
     description="Multi-User Shared Expense Management SaaS for Roommates and Shared Living",
@@ -42,7 +40,11 @@ app.include_router(demo.router, prefix=settings.API_V1_STR)
 
 @app.on_event("startup")
 def on_startup():
-    print("🚀 RoomMates backend initialized with clean slate. Ready for user registrations.")
+    try:
+        Base.metadata.create_all(bind=engine)
+        print("🚀 RoomMates database initialized and ready.")
+    except Exception as e:
+        print(f"⚠️ Non-blocking DB verification note: {e}")
 
 @app.get("/")
 def root():
