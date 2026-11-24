@@ -1,8 +1,7 @@
 import os
 import sys
-import traceback
 
-# Ensure current directory (api/) is at the front of sys.path
+# Ensure api directory is in sys.path
 current_dir = os.path.dirname(os.path.abspath(__file__))
 if current_dir not in sys.path:
     sys.path.insert(0, current_dir)
@@ -12,25 +11,9 @@ backend_dir = os.path.join(root_dir, "backend")
 if os.path.exists(backend_dir) and backend_dir not in sys.path:
     sys.path.insert(0, backend_dir)
 
-try:
-    from app.main import app
-except Exception as e:
-    from fastapi import FastAPI
-    from fastapi.responses import JSONResponse
-    app = FastAPI(title="Error Diagnostic")
-    err_str = traceback.format_exc()
-    print("FATAL APP INITIALIZATION ERROR:", err_str)
+from app.main import app as _fastapi_app
 
-    @app.api_route("/{full_path:path}", methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"])
-    def error_handler(full_path: str):
-        return JSONResponse(
-            status_code=500,
-            content={
-                "error": "FastAPI App Initialization Failed",
-                "exception": str(e),
-                "traceback": err_str.split("\n"),
-                "sys_path": sys.path,
-                "current_dir": current_dir,
-                "files_in_current_dir": os.listdir(current_dir) if os.path.exists(current_dir) else []
-            }
-        )
+# Top-level exports expected by Vercel's Python runtime AST scanner
+app = _fastapi_app
+application = app
+handler = app
