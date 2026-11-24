@@ -8,6 +8,7 @@ interface StatCardProps {
   iconBgColor?: string;
   badge?: string;
   badgeColor?: 'emerald' | 'rose' | 'indigo' | 'amber';
+  isCurrency?: boolean;
 }
 
 export const StatCard: React.FC<StatCardProps> = ({
@@ -18,6 +19,7 @@ export const StatCard: React.FC<StatCardProps> = ({
   iconBgColor = 'bg-brand-50 dark:bg-brand-950/60 text-brand-600 dark:text-brand-400',
   badge,
   badgeColor = 'emerald',
+  isCurrency = true,
 }) => {
   const badgeClasses = {
     emerald: 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800',
@@ -39,7 +41,9 @@ export const StatCard: React.FC<StatCardProps> = ({
 
       <div>
         <div className="text-2xl sm:text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">
-          {typeof value === 'number' ? `₹${value.toLocaleString('en-IN')}` : value}
+          {typeof value === 'number'
+            ? (isCurrency ? `₹${value.toLocaleString('en-IN')}` : value.toLocaleString('en-IN'))
+            : value}
         </div>
         <div className="mt-2 flex items-center justify-between text-xs">
           {subtitle && (

@@ -219,6 +219,7 @@ export const Dashboard: React.FC = () => {
           <StatCard
             title="Total Transactions"
             value={analytics.total_transactions}
+            isCurrency={false}
             subtitle="Individual + Fund logs"
             icon={<Layers className="w-4 h-4 text-indigo-600" />}
             iconBgColor="bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400"
@@ -227,6 +228,7 @@ export const Dashboard: React.FC = () => {
           <StatCard
             title="Group Roommates"
             value={analytics.member_count}
+            isCurrency={false}
             subtitle={`Avg spend: ₹${analytics.average_spending_per_member.toLocaleString('en-IN')}`}
             icon={<Users className="w-4 h-4 text-blue-600" />}
             iconBgColor="bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400"
