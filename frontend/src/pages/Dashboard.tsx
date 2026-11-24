@@ -2,8 +2,6 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import {
   Receipt,
-  PiggyBank,
-  CreditCard,
   Layers,
   Users,
   Award,
@@ -115,32 +113,14 @@ export const Dashboard: React.FC = () => {
         </div>
 
         {/* Quick Actions Header */}
-        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+        <div className="flex items-center gap-2">
           <Button
             size="sm"
             onClick={openAddExpense}
             leftIcon={<Receipt className="w-4 h-4 shrink-0" />}
-            className="flex-1 sm:flex-none text-xs whitespace-nowrap"
+            className="text-xs whitespace-nowrap shadow-sm"
           >
-            Add Expense
-          </Button>
-          <Button
-            size="sm"
-            variant="secondary"
-            onClick={openAddFundExpense}
-            leftIcon={<PiggyBank className="w-4 h-4 text-emerald-500 shrink-0" />}
-            className="flex-1 sm:flex-none text-xs whitespace-nowrap"
-          >
-            Spend Fund
-          </Button>
-          <Button
-            size="sm"
-            variant="outline"
-            onClick={openAddContribution}
-            leftIcon={<Plus className="w-4 h-4 shrink-0" />}
-            className="flex-1 sm:flex-none text-xs whitespace-nowrap"
-          >
-            Contribute
+            Add Personal Expense
           </Button>
         </div>
       </div>
@@ -186,12 +166,13 @@ export const Dashboard: React.FC = () => {
         </form>
       </div>
 
-      {/* Key Metric Stat Cards */}
+      {/* Key Metric Stat Cards - Clean Personal Focus */}
       {analytics && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <StatCard
             title="Total Personal Expenses"
             value={analytics.total_individual_expenses}
+            isCurrency={true}
             subtitle="Combined out-of-pocket spend"
             icon={<Receipt className="w-4 h-4" />}
             iconBgColor="bg-brand-50 dark:bg-brand-950/60 text-brand-600 dark:text-brand-400"
@@ -200,30 +181,10 @@ export const Dashboard: React.FC = () => {
           />
 
           <StatCard
-            title="Common Fund Balance"
-            value={analytics.common_fund_balance}
-            subtitle="Available pooled funds"
-            icon={<PiggyBank className="w-4 h-4 text-emerald-600" />}
-            iconBgColor="bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400"
-            badge="Pool Available"
-            badgeColor="emerald"
-          />
-
-          <StatCard
-            title="Common Fund Spent"
-            value={analytics.common_fund_spent}
-            subtitle="Deducted from shared pool"
-            icon={<CreditCard className="w-4 h-4 text-amber-600" />}
-            iconBgColor="bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400"
-            badge="Fund Spend"
-            badgeColor="amber"
-          />
-
-          <StatCard
             title="Total Transactions"
             value={analytics.total_transactions}
             isCurrency={false}
-            subtitle="Individual + Fund logs"
+            subtitle="Individual expense logs"
             icon={<Layers className="w-4 h-4 text-indigo-600" />}
             iconBgColor="bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400"
           />

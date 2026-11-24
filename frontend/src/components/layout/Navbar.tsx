@@ -179,16 +179,6 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <span className="hidden sm:inline">Add </span>Expense
           </Button>
-
-          <Button
-            size="sm"
-            variant="secondary"
-            onClick={onOpenAddFundExpense}
-            leftIcon={<PiggyBank className="w-3.5 h-3.5 text-emerald-500 shrink-0" />}
-            className="hidden md:inline-flex text-xs px-2.5 sm:px-3 py-1.5 whitespace-nowrap"
-          >
-            Fund Spend
-          </Button>
         </div>
       </div>
     </header>
