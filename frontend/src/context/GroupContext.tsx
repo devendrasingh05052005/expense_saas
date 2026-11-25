@@ -85,6 +85,28 @@ export const GroupProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   }, [currentGroup, refreshMembers]);
 
+  // Auto-sync across devices on window focus, visibility change, and network reconnect
+  useEffect(() => {
+    const handleSync = () => {
+      if (document.visibilityState === 'visible' && user) {
+        refreshGroups();
+        if (currentGroup) {
+          refreshMembers();
+        }
+      }
+    };
+
+    window.addEventListener('focus', handleSync);
+    document.addEventListener('visibilitychange', handleSync);
+    window.addEventListener('online', handleSync);
+
+    return () => {
+      window.removeEventListener('focus', handleSync);
+      document.removeEventListener('visibilitychange', handleSync);
+      window.removeEventListener('online', handleSync);
+    };
+  }, [user, currentGroup, refreshGroups, refreshMembers]);
+
   const selectGroup = (groupId: number) => {
     const target = groups.find((g) => g.id === groupId);
     if (target) {

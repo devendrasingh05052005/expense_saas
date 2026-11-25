@@ -9,12 +9,14 @@ import {
   Receipt,
   ChevronDown,
   History,
-  RotateCcw
+  RotateCcw,
+  Download
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import { useGroup } from '../../context/GroupContext';
 import { useToast } from '../../context/ToastContext';
+import { useNetwork } from '../../context/NetworkContext';
 import { Button } from '../common/Button';
 
 interface NavbarProps {
@@ -35,6 +37,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const { user } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const { fromDate, toDate, setFilterRange, resetFilterRange } = useGroup();
+  const { isStandalone, promptInstall } = useNetwork();
   const { success } = useToast();
 
   const [isDateFilterOpen, setIsDateFilterOpen] = useState(false);
@@ -146,6 +149,19 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Right: Theme Toggle, Activity & Actions */}
       <div className="flex items-center gap-1 sm:gap-2.5 shrink-0">
+        {/* Install App button if not already running standalone */}
+        {!isStandalone && (
+          <button
+            type="button"
+            onClick={() => promptInstall()}
+            title="Install App (Android, iPhone, Windows)"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-semibold bg-brand-50 hover:bg-brand-100 dark:bg-brand-950/60 dark:hover:bg-brand-900/50 text-brand-600 dark:text-brand-300 border border-brand-200 dark:border-brand-800 transition-all shrink-0 cursor-pointer shadow-2xs"
+          >
+            <Download className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400" />
+            <span className="hidden sm:inline">Install</span>
+          </button>
+        )}
+
         {/* Activity feed button */}
         <button
           onClick={onToggleActivityDrawer}

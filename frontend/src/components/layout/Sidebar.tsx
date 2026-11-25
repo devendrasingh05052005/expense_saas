@@ -11,10 +11,12 @@ import {
   LogOut,
   ChevronDown,
   Building2,
-  Sparkles
+  Sparkles,
+  Download
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useGroup } from '../../context/GroupContext';
+import { useNetwork } from '../../context/NetworkContext';
 
 interface SidebarProps {
   onOpenCreateGroup: () => void;
@@ -31,6 +33,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   const { user, logout } = useAuth();
   const { groups, currentGroup, selectGroup } = useGroup();
+  const { isStandalone, promptInstall } = useNetwork();
   const navigate = useNavigate();
   const [isGroupDropdownOpen, setIsGroupDropdownOpen] = React.useState(false);
 
@@ -177,6 +180,27 @@ export const Sidebar: React.FC<SidebarProps> = ({
             );
           })}
         </nav>
+
+        {/* Install App Trigger for Android, iOS & Windows */}
+        {!isStandalone && (
+          <div className="px-3 pb-2 pt-1 border-t border-gray-100 dark:border-dark-border">
+            <button
+              onClick={() => promptInstall()}
+              type="button"
+              className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold bg-gradient-to-r from-brand-50 to-indigo-50/50 hover:from-brand-100 hover:to-indigo-100/60 dark:from-brand-950/40 dark:to-indigo-950/30 dark:hover:from-brand-900/40 dark:hover:to-indigo-900/30 text-brand-600 dark:text-brand-300 border border-brand-200/80 dark:border-brand-800/60 transition-all shadow-xs group"
+            >
+              <div className="w-6 h-6 rounded-lg bg-brand-600 text-white flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform shadow-xs">
+                <Download className="w-3.5 h-3.5" />
+              </div>
+              <div className="text-left flex-1 min-w-0">
+                <div className="truncate font-bold leading-tight">Install App</div>
+                <div className="text-[10px] text-gray-500 dark:text-gray-400 truncate">
+                  Android • iOS • Windows
+                </div>
+              </div>
+            </button>
+          </div>
+        )}
 
         {/* User Profile Card at bottom */}
         <div className="p-4 border-t border-gray-100 dark:border-dark-border">
